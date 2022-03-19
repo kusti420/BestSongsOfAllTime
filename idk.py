@@ -31,10 +31,10 @@ def get_links_from_playlist(link: str, developer_key: str) -> list:
                 request = youtube.playlistItems().list_next(request, response)
         except AttributeError:
             links = [f"https://www.youtube.com/watch?v={link}" for link in links]
-            links = reversed(links)
-            titles = reversed(titles)
-            channel_names = reversed(channel_names)
-            return zip(titles, links, channel_names)
+            links.reverse()
+            titles.reverse()
+            channel_names.reverse()
+            return [titles, links, channel_names]
 
 
 if __name__ == '__main__':
@@ -42,17 +42,29 @@ if __name__ == '__main__':
     with open("key.txt", "r") as key:
         KEY = key.read()
     playlist = get_links_from_playlist(URL, KEY)
+    # print(playlist)
+
+
+
+
+
+
+
+
     # print(*playlist, sep='\n')
     links_in_csv = []
     channel_names_in_csv = []
+    titles, links, channel_names = playlist
     with open("playlist.csv", "r", encoding="utf-8", newline="") as csvfile:
         reader = csv.reader(csvfile, delimiter=',')
         for title, link, channel_name in reader:
             links_in_csv.append(link)
         csvfile.close()
+
     with open("playlist.csv", "a", encoding="utf-8", newline="") as csvfile:
         writer = csv.writer(csvfile, delimiter=',')
-        for title, link, channel_name in playlist:
-            if link not in links_in_csv:
-                writer.writerow([title, link, channel_name])
+        for i in range(len(links)):
+            if links[i] not in links_in_csv:
+                writer.writerow([titles[i], links[i], channel_names[i]])
+                pass
     pass
