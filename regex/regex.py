@@ -18,8 +18,8 @@ for folder in folders:
     files = os.listdir(path + folder)
     for file in files:
         if re.search(rf"(.*){c}(.*)", file) != None:
-            pattern_c[file] = re.search(rf"(.*){c}.*", file).group(1)
+            pattern_c[file] = re.search(rf"(.*){c}(.*)", file).group(1) + re.search(rf"(.*){c}(.*)", file).group(2)
         if re.search(rf"(.*){d}(.*)", file) != None:
-            pattern_d[file] = re.search(rf"(.*){d}.*", file).group(1)
+            pattern_d[file] = re.search(rf"(.*){d}(.*)", file).group(1) + re.search(rf"(.*){d}(.*)", file).group(2)
     [os.rename(path + folder + "/" + k, path + folder + "/" + v) for k, v in pattern_c.items()]
     [os.rename(path + folder + "/" + k, path + folder + "/" + v) for k, v in pattern_d.items()]
