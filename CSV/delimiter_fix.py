@@ -42,7 +42,7 @@ def fix(playlist):
 
 
 if __name__ == "__main__":
-    # get_delimiter()
+    get_delimiter()
     # print(delimiter)
-    # fix(get_playlist(get_delimiter()))
+    fix(get_playlist())
     pass
