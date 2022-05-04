@@ -51,26 +51,26 @@ if __name__ == '__main__':
     channel_names_in_csv = []
     titles, links, channel_names = playlist
     with open("playlist.csv", "r", encoding="utf-8", newline="") as csvfile:
-        reader = csv.reader(csvfile, delimiter='|||')
+        reader = csv.reader(csvfile, delimiter=',')
         for title, link, channel_name in reader:
             links_in_csv.append(link)
         csvfile.close()
     
     with open("removedSongs.csv", "r", encoding="utf-8", newline="") as csvfile:
-        reader = csv.reader(csvfile, delimiter='|||')
+        reader = csv.reader(csvfile, delimiter=',')
         for title, link, channel_name in reader:
             links_in_removed_songs.append(link)
         csvfile.close()
 
     with open("playlist.csv", "a", encoding="utf-8", newline="") as csvfile:
-        writer = csv.writer(csvfile, delimiter='|||')
+        writer = csv.writer(csvfile, delimiter=',')
         for i in range(len(links)):
             if links[i] not in links_in_csv:
                 if channel_names[i] != 'removed?':
                     writer.writerow([titles[i], links[i], channel_names[i]])
                 else:
                     with open("removedSongs.csv", "a", encoding="utf-8", newline="") as csvfile2:
-                        writer2 = csv.writer(csvfile2, delimiter='|||')
+                        writer2 = csv.writer(csvfile2, delimiter=',')
                         if links[i] not in links_in_removed_songs:
                             writer2.writerow([titles[i], links[i], channel_names[i]])
     pass
