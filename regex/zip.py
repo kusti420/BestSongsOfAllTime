@@ -1,8 +1,6 @@
+"""Turns each folder into a separate zip file."""
 from shutil import make_archive
-import shutil
-from zipfile import ZipFile
 import os
-
 
 with open("pathToMusic.txt", "r") as f:
     path = f.read()

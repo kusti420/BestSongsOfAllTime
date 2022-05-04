@@ -1,6 +1,7 @@
 """Google API."""
 from googleapiclient.discovery import build
 import csv
+import delimiter_fix
 
 
 def get_playlist_data(link: str, developer_key: str) -> list:
@@ -73,4 +74,6 @@ if __name__ == '__main__':
                         writer2 = csv.writer(csvfile2, delimiter=',')
                         if links[i] not in links_in_removed_songs:
                             writer2.writerow([titles[i], links[i], channel_names[i]])
+    
+    delimiter_fix.get_delimiter(); delimiter_fix.fix(delimiter_fix.get_playlist())
     pass

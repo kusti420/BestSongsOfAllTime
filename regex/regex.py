@@ -1,3 +1,4 @@
+"""Renames files in a directory based on a regex."""
 import re, os
 
 with open("pathToMusic.txt", "r") as f:
