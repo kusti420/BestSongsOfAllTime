@@ -3,7 +3,8 @@ from googleapiclient.discovery import build
 import csv
 
 
-def get_links_from_playlist(link: str, developer_key: str) -> list:
+def get_playlist_data(link: str, developer_key: str) -> list:
+    """Get data about a youtube playlist using the Google API."""
     links = []
     titles = []
     channel_names = [] # name of the channel who uploaded that video
@@ -41,15 +42,8 @@ if __name__ == '__main__':
     URL = "https://www.youtube.com/playlist?list=PLblHf1C6WdiFNFFrPb3UrHuyqMzdkNw0n"
     with open("key.txt", "r") as key:
         KEY = key.read()
-    playlist = get_links_from_playlist(URL, KEY)
+    playlist = get_playlist_data(URL, KEY)
     # print(playlist)
-
-
-
-
-
-
-
 
     # print(*playlist, sep='\n')
     links_in_csv = []
