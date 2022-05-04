@@ -35,6 +35,11 @@ def fix(playlist):
         playlist.titles[i] = playlist.titles[i].strip(); 
         playlist.titles[i] = playlist.titles[i].replace('"', "")
         playlist.titles[i] = playlist.titles[i].replace("'", "")
+
+        playlist.channel_names[i] = playlist.channel_names[i].replace(str(delimiter), "")
+        playlist.channel_names[i] = playlist.channel_names[i].strip();
+        playlist.channel_names[i] = playlist.channel_names[i].replace('"', "")
+        playlist.channel_names[i] = playlist.channel_names[i].replace("'", "")
     
     writer = csv.writer(open(FILE, "w", encoding="utf-8", newline=""), delimiter=delimiter)
     for i in range(len(playlist.titles)):
