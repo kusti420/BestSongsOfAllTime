@@ -44,7 +44,6 @@ if __name__ == '__main__':
     with open("key.txt", "r") as key:
         KEY = key.read()
     playlist = get_playlist_data(URL, KEY)
-    # print(playlist)
 
     # print(*playlist, sep='\n')
     links_in_csv = []
