@@ -1,6 +1,7 @@
 """Turns each folder into a separate zip file."""
 from shutil import make_archive
 import os
+os.chdir(os.path.dirname(os.path.realpath(__file__)))
 
 with open("pathToMusic.txt", "r") as f:
     path = f.read()

@@ -2,7 +2,8 @@
 from googleapiclient.discovery import build
 import csv
 import delimiter_fix
-
+import os
+os.chdir(os.path.dirname(os.path.realpath(__file__)))
 
 def get_playlist_data(link: str, developer_key: str) -> list:
     """Get data about a youtube playlist using the Google API."""

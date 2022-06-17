@@ -1,5 +1,6 @@
 import csv
-
+import os
+os.chdir(os.path.dirname(os.path.realpath(__file__)))
 
 # open playlist.csv
 # reverse the playlist.csv file itself

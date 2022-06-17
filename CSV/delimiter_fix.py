@@ -1,7 +1,9 @@
 import csv
 from collections import namedtuple
+import os
 
 FILE = "playlist.csv"
+os.chdir(os.path.dirname(os.path.realpath(__file__)))
 
 def get_delimiter():
     global delimiter
@@ -15,7 +17,6 @@ def get_delimiter():
     delimiter = list(set(delimiter))
     delimiter.remove("\n"); delimiter.remove(" ")
     delimiter = delimiter[0]
-    return delimiter[0]
 
 def get_playlist():
     playlist = namedtuple("playlist", ["titles", "links", "channel_names"])

@@ -1,5 +1,6 @@
 """Renames files in a directory based on a regex."""
 import re, os
+os.chdir(os.path.dirname(os.path.realpath(__file__)))
 
 with open("pathToMusic.txt", "r") as f:
     path = f.read()
