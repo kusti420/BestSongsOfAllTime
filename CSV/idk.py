@@ -56,7 +56,7 @@ if __name__ == '__main__':
         for title, link, channel_name in reader:
             links_in_csv.append(link)
         csvfile.close()
-    
+
     with open("removedSongs.csv", "r", encoding="utf-8", newline="") as csvfile:
         reader = csv.reader(csvfile, delimiter=',')
         for title, link, channel_name in reader:
@@ -74,6 +74,6 @@ if __name__ == '__main__':
                         writer2 = csv.writer(csvfile2, delimiter=',')
                         if links[i] not in links_in_removed_songs:
                             writer2.writerow([titles[i], links[i], channel_names[i]])
-    
+
     delimiter_fix.get_delimiter(); delimiter_fix.fix(delimiter_fix.get_playlist())
     pass
