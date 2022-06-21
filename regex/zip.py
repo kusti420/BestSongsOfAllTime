@@ -12,6 +12,7 @@ print(os.getcwd())
 for folder in folders:
     files = os.listdir(os.getcwd())
     if f"{folder}.zip" not in files and folder != "zips":
-        # make_archive(folder, "zip", path + folder)
+        print(f"Creating {folder}.zip")
+        make_archive(folder, "zip", path + folder)
         pass
     pass
