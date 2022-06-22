@@ -13,6 +13,56 @@ c = r"\d\d? - "
 d = r"\d_"
 e = r"_FLAC"
 f = r"\W\WFLAC\W"
+
+def fix(filename):
+    filename = filename.replace('"', "")
+    filename = filename.replace("'", "")
+    filename = filename.replace("–", "-")
+    filename = filename.replace("—", "-")
+    filename = filename.replace(",", '')
+    filename = filename.replace("“", '')
+    filename = filename.replace("”", '')
+    filename = filename.replace("‘", '')
+    filename = filename.replace("’", '')
+    filename = filename.replace("「", '[')
+    filename = filename.replace("」", ']')
+    filename = filename.replace("『", '[')
+    filename = filename.replace("』", ']')
+    filename = filename.replace("（", '(')
+    filename = filename.replace("）", ')')
+    filename = filename.replace("［", '[')
+    filename = filename.replace("］", ']')
+    filename = filename.replace("｛", '{')
+    filename = filename.replace("｝", '}')
+    filename = filename.replace("／", '/')
+    filename = filename.replace("＼", '\\')
+    filename = filename.replace("．", '.')
+    filename = filename.replace("，", ',')
+    filename = filename.replace("：", ':')
+    filename = filename.replace("；", ';')
+    filename = filename.replace("？", '?')
+    filename = filename.replace("！", '!')
+    filename = filename.replace("＠", '@')
+    filename = filename.replace("＃", '#')
+    filename = filename.replace("＄", '$')
+    filename = filename.replace("％", '%')
+    filename = filename.replace("＆", '&')
+    filename = filename.replace("＊", '*')
+    filename = filename.replace("→", "-")
+    filename = filename.replace("✕", '')
+    filename = filename.replace("✓", '')
+    filename = filename.replace("♫", '')
+    filename = filename.replace("♪", '')
+    filename = filename.replace("♩", '')
+    filename = filename.replace("♬", '')
+    filename = filename.replace("♭", '')
+    filename = filename.replace("♮", '')
+    filename = filename.replace("♯", '')
+    filename = filename.replace("◉", '')
+    filename = filename.replace("♛", '')
+    filename = filename.replace("♥", '')
+    return filename
+
 for folder in folders:
     pattern_a = {}
     pattern_b = {}
@@ -22,6 +72,7 @@ for folder in folders:
     pattern_f = {}
     files = os.listdir(path + folder)
     for file in files:
+        os.rename(path + folder + '/' + file, path + folder + '/' + fix(file))
         if re.search(rf"{a}(.*)", file) != None:
             pattern_a[file] = re.search(rf"{a}(.*)", file).group(1)
         elif re.search(rf"{b}(.*)", file) != None:
