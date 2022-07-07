@@ -9,7 +9,7 @@ def get_playlist_data(link: str, developer_key: str) -> list:
     """Get data about a youtube playlist using the Google API."""
     links = []
     titles = []
-    channel_names = [] # name of the channel who uploaded that video
+    channel_names = []
     youtube = build('youtube', 'v3', developerKey=developer_key)
     request = youtube.playlistItems().list(
         part='snippet',
@@ -44,6 +44,7 @@ if __name__ == '__main__':
     URL = "https://www.youtube.com/playlist?list=PLblHf1C6WdiFNFFrPb3UrHuyqMzdkNw0n"
     with open("key.txt", "r") as key:
         KEY = key.read()
+        key.close()
     playlist = get_playlist_data(URL, KEY)
 
     # print(*playlist, sep='\n')
