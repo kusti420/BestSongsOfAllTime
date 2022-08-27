@@ -1,4 +1,5 @@
 import os
+os.chdir(os.path.dirname(os.path.realpath(__file__)))
 with open("pathToMusic.txt", "r") as f:
     path = f.read()
     f.close()
