@@ -7,6 +7,7 @@ with open("pathToMusic.txt", "r") as f:
     path = f.read()
     f.close()
 folders = os.listdir(path)
+folders.remove("zips")
 a = r"\d_\d\d?\W?-\W"
 b = r"\d_\d\d?\W?_"
 c = r"\d\d? - "
