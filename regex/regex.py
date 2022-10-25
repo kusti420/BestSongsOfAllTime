@@ -65,6 +65,7 @@ def fix(filename):
     filename = filename.replace("♛", '')
     filename = filename.replace("♥", '')
     filename = filename.replace("​", '')
+    filename = filename.replace("☯️", '')
     return filename
 
 for folder in folders:
