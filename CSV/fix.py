@@ -21,8 +21,8 @@ for i in range(len(lines)):
 special_case = False
 for i in range(len(lines)):
     try:
-        # print(any([re.match(r"\d+-\d+,\d+-\d+,\d+-\d+", lines[j]) for j in range(i, i+10)]))
-        if i - 45 >= last_index and any([re.match(r"\d+-\d+,\d+-\d+,\d+-\d+", lines[j]) for j in range(i, i+10)]):
+        # print(any([re.match(r"\d+-\d+,\d+-\d+,\d+-\d+", lines[j]) for j in range(i, i+20)]))
+        if i - 45 >= last_index and any([re.match(r"\d+-\d+,\d+-\d+,\d+-\d+", lines[j]) for j in range(i, i+20)]):
             special_case = True
     except IndexError:
         break
