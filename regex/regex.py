@@ -10,7 +10,7 @@ folders = os.listdir(path)
 folders.remove("zips")
 a = r"\d_\d\d?\W?-\W"
 b = r"\d_\d\d?\W?_"
-c = r"\d\d? - "
+c = r"\d+\s?-\s?"
 d = r"\d\d-"
 e = r"\d_"
 
