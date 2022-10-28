@@ -6,9 +6,16 @@ with open("pathToMusic.txt", "r") as f:
 folders = os.listdir(path)
 os.chdir(path)
 
+folders_to_ignore = [
+    "part1",
+    "part2",
+    "part3",
+    "part5",
+]
+
 folders_with_lossy_files = set()
 for folder in folders:
-    if folder != "zips":
+    if folder != "zips" and folder not in folders_to_ignore:
         files_in_folder = os.listdir(path + "/" + folder)
         for file in files_in_folder:
             if file.endswith(".mp3") or file.endswith(".m4a"):
