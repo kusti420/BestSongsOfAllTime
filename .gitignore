@@ -4,3 +4,5 @@ key2.txt
 idk_backup.py
 regex/pathToMusic.txt
 test.txt
+__pycache__/
+__pycache__/*
