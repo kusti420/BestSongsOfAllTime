@@ -21,10 +21,10 @@ def get_songs_by_year(year: int) -> list:
 
 # print(get_songs_by_year(2009))
 
-# for i in range(2004, 2011, 1):
-#     with open(f'{i}.csv', 'w', encoding='utf-8', newline='') as f:
-#         writer = csv.writer(f)
-#         writer.writerows(get_songs_by_year(i))
+for i in range(2005, 2024, 1):
+    with open(f'{i}.csv', 'w', encoding='utf-8', newline='') as f:
+        writer = csv.writer(f)
+        writer.writerows(get_songs_by_year(i))
 
 def find_songs_where_upload_date_is_the_same_as_date_when_it_was_added_to_the_playlist():
     # date has to be the same but not the time on that date
