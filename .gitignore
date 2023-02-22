@@ -6,3 +6,8 @@ regex/pathToMusic.txt
 test.txt
 __pycache__/
 __pycache__/*
+Lib/*
+Lib/
+pyvenv.cfg
+Scripts/*
+Scripts/
