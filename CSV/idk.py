@@ -14,7 +14,6 @@ def get_playlist_data(link: str, developer_key: str) -> list:
     channel_names = []
     date_added_to_playlist = []
     date_added_to_youtube = []
-    video_ids = []
     youtube = build('youtube', 'v3', developerKey=developer_key)
     request = youtube.playlistItems().list(
         part='snippet',
@@ -46,7 +45,6 @@ def get_playlist_data(link: str, developer_key: str) -> list:
                         date_added_to_youtube.append(str(datetime.datetime.strptime(response2['items'][0]['snippet']['publishedAt'], "%Y-%m-%dT%H:%M:%SZ")))
                     except:
                         date_added_to_youtube.append('no clue')
-                    # video_ids.append(item['snippet']['resourceId']['videoId'])
 
                     try:
                         channel_names.append(item['snippet']['videoOwnerChannelTitle'])
@@ -58,9 +56,9 @@ def get_playlist_data(link: str, developer_key: str) -> list:
             links = [f"https://www.youtube.com/watch?v={link}" for link in links]
             links.reverse()
             titles.reverse()
-            channel_names.reverse()
             date_added_to_playlist.reverse()
             date_added_to_youtube.reverse()
+            channel_names.reverse()
             return [titles, links, channel_names, date_added_to_playlist, date_added_to_youtube]
 
 
