@@ -45,7 +45,7 @@ def run_get_data_about_a_specific_page_in_parallel(link:str, page_tokens:dict, d
     def get_data(link, pageToken):
         return get_data_about_a_specific_page(link, developer_key, pageToken)
 
-    with concurrent.futures.ThreadPoolExecutor() as executor:
+    with concurrent.futures.ThreadPoolExecutor(max_workers=24) as executor:
         future_to_pageToken = {executor.submit(get_data, link, pageToken): pageToken for pageToken in page_tokens}
         for future in concurrent.futures.as_completed(future_to_pageToken):
             pageToken = future_to_pageToken[future]
@@ -63,20 +63,14 @@ def run_get_data_about_a_specific_page_in_parallel(link:str, page_tokens:dict, d
 
 def get_playlist_data(link: str, developer_key: str = KEY, pageToken = None) -> list:
     lst = []
-    # pagetokens = []
     youtube = build('youtube', 'v3', developerKey=developer_key)
     request = youtube.playlistItems().list(
         part='snippet',
         playlistId=link.split('=')[-1],
         maxResults=50,
         pageToken=pageToken,
-        # pageToken="EAAaB1BUOkNMQWk",
     )
     response = request.execute()
-    # print nextpageToken
-    # nextpageToken = response['nextPageToken']
-    # pagetokens.append(nextpageToken)
-    # print(nextpageToken)
     if not response:
         pass
     else:
@@ -96,12 +90,6 @@ def get_playlist_data(link: str, developer_key: str = KEY, pageToken = None) -> 
                     lst.append(outputItem)
                     print(len(lst))
                 request = youtube.playlistItems().list_next(request, response)
-                # try:
-                #     nextpageToken = response['nextPageToken']
-                #     pagetokens.append(nextpageToken)
-                #     print(nextpageToken)
-                # except KeyError:
-                #     pass
         except AttributeError:
             return lst[::-1]
 
@@ -185,23 +173,25 @@ if __name__ == '__main__':
     try:
         with open("pagetokens.txt", "r") as tokens:
             pagetokens = tokens.read().split("\n")
+            if len(pagetokens) == 1 and pagetokens[0] == "":
+                raise FileNotFoundError("pagetokens.txt is empty")
             pagetokens = [None] + pagetokens
             tokens.close()
     except FileNotFoundError:
-        # pagetokens = [None]
         pagetokens = get_page_tokens(URL, developer_key=KEY)
         with open("pagetokens.txt", "w", encoding="utf-8") as tokens:
             for token in get_page_tokens(URL, pageToken=None):
                 tokens.write(token + "\n")
+        pagetokens = [None] + pagetokens
 
     print(pagetokens)
     # exit()
 
     pagetokens = {token: index for index, token in enumerate(pagetokens)}
-    print(pagetokens)
+    # print(pagetokens, len(pagetokens))
     removed_songs = [item for item in pl_csv if item.channel_name == 'removed?']
 
-    print(get_data_about_a_specific_page(URL, pageToken=None))
+    # print(get_data_about_a_specific_page(URL, pageToken=None))
     # exit()
 
     # master_playlist = get_playlist_data(URL)
@@ -209,7 +199,7 @@ if __name__ == '__main__':
 
     # print(master_playlist.keys())
     pl = []
-    print(sorted(master_playlist.keys()))
+    # print(sorted(master_playlist.keys()))
     # for key in sorted(master_playlist.keys()):
     #     pl.extend(master_playlist[key])
     master_playlist = [master_playlist[key] for key in sorted(master_playlist.keys())]
@@ -219,23 +209,29 @@ if __name__ == '__main__':
         temp.extend(lst)
     master_playlist = temp[::-1]
 
-    print(master_playlist, len(master_playlist))
+    # print(master_playlist, len(master_playlist))
     # print(len(master_playlist))
     # exit()
     playlist = [item for item in master_playlist if item.link not in [itm.link.split("=")[-1] for itm in pl_csv]]
 
-    playlist = run_date_added_to_youtube_in_parallel(playlist)
+
 
 
     # print(playlist, len(playlist))
+    indecies_to_remove = []
+    for item in playlist:
+        if item.channel_name == 'removed?' or item.link in [itm.link for itm in removed_songs]:
+            removed_songs.append(item)
+            indecies_to_remove.append(playlist.index(item))
+            playlist.remove(item)
+    playlist = [item for index, item in enumerate(playlist) if index not in indecies_to_remove]
 
+    playlist = run_date_added_to_youtube_in_parallel(playlist)
+    # print(playlist)
     with open("playlist.csv", "a", encoding="utf-8", newline="") as csvfile:
         writer = csv.writer(csvfile, delimiter=',')
         for item in playlist:
-            if item.channel_name != 'removed?':
-                writer.writerow([item.title, f"https://www.youtube.com/watch?v={item.link}", item.channel_name, item.date_added_to_playlist, item.date_added_to_youtube])
-            else:
-                removed_songs.append(item)
+            writer.writerow([item.title, f"https://www.youtube.com/watch?v={item.link}", item.channel_name, item.date_added_to_playlist, item.date_added_to_youtube])
         csvfile.close()
     # print(removed_songs)
 
