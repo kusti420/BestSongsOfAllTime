@@ -6,6 +6,7 @@ import delimiter_fix
 import os
 import datetime
 os.chdir(os.path.dirname(os.path.realpath(__file__)))
+# TODO: make it so that the amount of requests is reduced. stuff in the csv file should not be requested again
 
 def get_playlist_data(link: str, developer_key: str) -> list:
     """Get data about a youtube playlist using the Google API."""

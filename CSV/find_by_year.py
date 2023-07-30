@@ -47,7 +47,3 @@ def find_songs_where_upload_date_is_the_same_as_date_when_it_was_added_to_the_pl
     return songs
 
 # print(find_songs_where_upload_date_is_the_same_as_date_when_it_was_added_to_the_playlist())
-
-# with open('songs_where_upload_date_is_the_same_as_date_when_it_was_added_to_the_playlist.csv', 'w', encoding='utf-8', newline='') as f:
-#     writer = csv.writer(f)
-#     writer.writerows(find_songs_where_upload_date_is_the_same_as_date_when_it_was_added_to_the_playlist())
