@@ -154,7 +154,7 @@ def run_date_added_to_youtube_in_parallel(playlist: list):
             else:
                 if result is not None:
                     index = playlist.index(item)
-                    print(index, result)
+                    print(result)
                     playlist[index] = result
     return playlist
 
@@ -185,39 +185,19 @@ if __name__ == '__main__':
         pagetokens = [None] + pagetokens
 
     print(pagetokens)
-    # exit()
 
     pagetokens = {token: index for index, token in enumerate(pagetokens)}
-    # print(pagetokens, len(pagetokens))
     removed_songs = [item for item in pl_csv if item.channel_name == 'removed?']
 
-    # print(get_data_about_a_specific_page(URL, pageToken=None))
-    # exit()
-
-    # master_playlist = get_playlist_data(URL)
     master_playlist = run_get_data_about_a_specific_page_in_parallel(URL, pagetokens)
-
-    # print(master_playlist.keys())
-    pl = []
-    # print(sorted(master_playlist.keys()))
-    # for key in sorted(master_playlist.keys()):
-    #     pl.extend(master_playlist[key])
     master_playlist = [master_playlist[key] for key in sorted(master_playlist.keys())]
-    # take master playlist and turn it into a list. use the indecies from the pagetokens to get the correct order of the playlist
     temp = []
     for lst in master_playlist:
         temp.extend(lst)
     master_playlist = temp[::-1]
 
-    # print(master_playlist, len(master_playlist))
-    # print(len(master_playlist))
-    # exit()
     playlist = [item for item in master_playlist if item.link not in [itm.link.split("=")[-1] for itm in pl_csv]]
 
-
-
-
-    # print(playlist, len(playlist))
     indecies_to_remove = []
     for item in playlist:
         if item.channel_name == 'removed?' or item.link in [itm.link for itm in removed_songs]:
@@ -227,15 +207,10 @@ if __name__ == '__main__':
     playlist = [item for index, item in enumerate(playlist) if index not in indecies_to_remove]
 
     playlist = run_date_added_to_youtube_in_parallel(playlist)
-    # print(playlist)
     with open("playlist.csv", "a", encoding="utf-8", newline="") as csvfile:
         writer = csv.writer(csvfile, delimiter=',')
         for item in playlist:
             writer.writerow([item.title, f"https://www.youtube.com/watch?v={item.link}", item.channel_name, item.date_added_to_playlist, item.date_added_to_youtube])
         csvfile.close()
-    # print(removed_songs)
-
-    # print(get_page_tokens(URL))
-
 
     pass
