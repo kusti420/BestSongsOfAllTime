@@ -210,7 +210,7 @@ if __name__ == '__main__':
     with open("playlist.csv", "a", encoding="utf-8", newline="") as csvfile:
         writer = csv.writer(csvfile, delimiter=',')
         for item in playlist:
-            writer.writerow([item.title, f"https://www.youtube.com/watch?v={item.link}", item.channel_name, item.date_added_to_playlist, item.date_added_to_youtube])
+            writer.writerow([item.title, f"https://www.youtube.com/watch?v={item.link}", item.channel_name, item.date_added_to_playlist, item.date_added_to_youtube, False])
         csvfile.close()
 
     pass
