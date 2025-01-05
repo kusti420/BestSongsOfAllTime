@@ -160,8 +160,9 @@ def run_date_added_to_youtube_in_parallel(playlist: list):
 
 
 if __name__ == '__main__':
-    URL = "https://www.youtube.com/playlist?list=PLblHf1C6WdiFNFFrPb3UrHuyqMzdkNw0n"
-    with open("playlist.csv", "r", encoding="utf-8", newline="") as csvfile:
+    # URL = "https://www.youtube.com/playlist?list=PLblHf1C6WdiFNFFrPb3UrHuyqMzdkNw0n" # part1
+    URL = "https://www.youtube.com/playlist?list=PLblHf1C6WdiEqI0RcPhlOZ2WscZEHzUah" # part2
+    with open("playlist2.csv", "r", encoding="utf-8", newline="") as csvfile:
         pl_csv = []
         reader = csv.reader(csvfile, delimiter=',')
         try:
@@ -207,7 +208,7 @@ if __name__ == '__main__':
     playlist = [item for index, item in enumerate(playlist) if index not in indecies_to_remove]
 
     playlist = run_date_added_to_youtube_in_parallel(playlist)
-    with open("playlist.csv", "a", encoding="utf-8", newline="") as csvfile:
+    with open("playlist2.csv", "a", encoding="utf-8", newline="") as csvfile:
         writer = csv.writer(csvfile, delimiter=',')
         for item in playlist:
             writer.writerow([item.title, f"https://www.youtube.com/watch?v={item.link}", item.channel_name, item.date_added_to_playlist, item.date_added_to_youtube, False])

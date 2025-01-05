@@ -12,7 +12,7 @@ def shift_back(path):
     for file in files:
         index, file = int(file.split(".")[0]), file[len(str(int(file.split(".")[0]))) + 1:]
         # print(index, file)
-        if index >= 4765 and index <= 5000:
+        if index >= 515 and index <= 5000:
             try:
                 os.rename(f"{path}\{index}.{file}", f"{path}\{index - 1}.{file}")
                 print(index)
