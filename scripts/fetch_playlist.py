@@ -10,6 +10,7 @@ import os
 import sys
 from datetime import datetime
 from pathlib import Path
+from urllib.parse import parse_qs, urlparse
 
 from googleapiclient.discovery import build
 
@@ -52,7 +53,7 @@ def fetch_upload_dates(youtube, video_ids: list[str]) -> dict[str, str]:
 def main(part: str) -> None:
     playlist_id, csv_path = PLAYLISTS[part]
     rows = read_rows(csv_path)
-    known = {row["link"].split("=")[-1] for row in rows}
+    known = {parse_qs(urlparse(row["link"]).query)["v"][0] for row in rows}
 
     youtube = build("youtube", "v3", developerKey=api_key())
     new, new_ids, unavailable = [], [], []
