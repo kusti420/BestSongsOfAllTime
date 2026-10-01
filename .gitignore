@@ -1,13 +1,11 @@
+# YouTube API key
 key.txt
-CSV/key.txt
-key2.txt
-idk_backup.py
-regex/pathToMusic.txt
-test.txt
+
+# Python
 __pycache__/
-__pycache__/*
-Lib/*
-Lib/
-pyvenv.cfg
-Scripts/*
-Scripts/
+.venv/
+venv/
+
+# Editors
+.idea/
+.vscode/
